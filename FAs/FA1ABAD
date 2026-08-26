@@ -1,0 +1,345 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{titling}
+
+\setlength{\headheight}{14pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{APM1220 -- FA 1 Maria Elizabeth Abad}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\title{APM1220: Applied Multivariate Data Analysis \\ Formative Assessment 1}
+\author{}
+\date{}
+
+\newcommand{\mat}[1]{\begin{bmatrix} #1 \end{bmatrix}}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+\section*{Problem 2.2 (5 points)}
+
+Given
+\[
+A = \mat{-1 & 3 \\ 4 & 2}, \qquad
+B = \mat{4 & -3 \\ 1 & -2 \\ -2 & 0}, \qquad
+C = \mat{5 \\ -4 \\ 2}.
+\]
+
+\subsection*{(a) $5A$}
+\[
+5A = \mat{-5 & 15 \\ 20 & 10}
+\]
+
+\subsection*{(b) $BA$}
+$B$ is $3\times 2$ and $A$ is $2\times 2$, so $BA$ is $3 \times 2$ (dimensions conform: $2=2$).
+\[
+BA = \mat{4 & -3 \\ 1 & -2 \\ -2 & 0}\mat{-1 & 3 \\ 4 & 2}
+= \mat{4(-1)+(-3)(4) & 4(3)+(-3)(2) \\ 1(-1)+(-2)(4) & 1(3)+(-2)(2) \\ -2(-1)+0(4) & -2(3)+0(2)}
+= \mat{-16 & 6 \\ -9 & -1 \\ 2 & -6}
+\]
+
+\subsection*{(c) $A'B'$}
+\[
+A' = \mat{-1 & 4 \\ 3 & 2}, \qquad B' = \mat{4 & 1 & -2 \\ -3 & -2 & 0}
+\]
+$A'$ is $2\times2$, $B'$ is $2\times3$, so $A'B'$ is $2\times3$ (dimensions conform: $2=2$). Note $A'B' = (BA)'$.
+\[
+A'B' = \mat{-1 & 4 \\ 3 & 2}\mat{4 & 1 & -2 \\ -3 & -2 & 0}
+= \mat{-1(4)+4(-3) & -1(1)+4(-2) & -1(-2)+4(0) \\ 3(4)+2(-3) & 3(1)+2(-2) & 3(-2)+2(0)}
+= \mat{-16 & -9 & 2 \\ 6 & -1 & -6}
+\]
+which indeed equals $(BA)'$ computed in (b), as required.
+
+\subsection*{(d) $C'B$}
+$C'$ is $1\times3$ and $B$ is $3\times2$, so $C'B$ is $1\times2$ (dimensions conform: $3=3$).
+\[
+C'B = \mat{5 & -4 & 2}\mat{4 & -3 \\ 1 & -2 \\ -2 & 0}
+= \mat{5(4)+(-4)(1)+2(-2) & 5(-3)+(-4)(-2)+2(0)}
+= \mat{12 & -7}
+\]
+
+\subsection*{(e) Is $AB$ defined?}
+$A$ is $2\times 2$ and $B$ is $3\times 2$. The number of columns of $A$ (2) does not equal the number of rows of $B$ (3), so the product $AB$ is \textbf{not defined}.
+
+\section*{Problem 2.4 (6 points)}
+
+\subsection*{(a) $(A')^{-1} = (A^{-1})'$}
+Since $A^{-1}$ exists, $AA^{-1} = I$. Taking the transpose of both sides and using $I' = I$,
+\[
+(AA^{-1})' = I' = I.
+\]
+By the transpose-of-a-product rule, $(AA^{-1})' = (A^{-1})'A'$, so
+\[
+(A^{-1})'A' = I.
+\]
+This equation states that $(A^{-1})'$ is a matrix which, when multiplied on the right by $A'$, gives the identity; hence $(A^{-1})'$ is the (unique) inverse of $A'$. Therefore
+\[
+(A')^{-1} = (A^{-1})'. \qquad \blacksquare
+\]
+
+\subsection*{(b) $(AB)^{-1} = B^{-1}A^{-1}$}
+Using associativity of matrix multiplication and $A^{-1}A = I$, $B^{-1}B=I$:
+\[
+(B^{-1}A^{-1})(AB) = B^{-1}(A^{-1}A)B = B^{-1}(I)B = B^{-1}B = I.
+\]
+Likewise,
+\[
+(AB)(B^{-1}A^{-1}) = A(BB^{-1})A^{-1} = A(I)A^{-1} = AA^{-1} = I.
+\]
+Since $B^{-1}A^{-1}$ multiplied by $AB$ on either side yields the identity matrix, $B^{-1}A^{-1}$ is the (unique) inverse of $AB$. Therefore
+\[
+(AB)^{-1} = B^{-1}A^{-1}. \qquad \blacksquare
+\]
+
+\section*{Problem 2.8 (6 points)}
+
+Given
+\[
+A = \mat{1 & 2 \\ 2 & -2}.
+\]
+
+\subsection*{Eigenvalues}
+Solve $|A - \lambda I| = 0$:
+\[
+\det\mat{1-\lambda & 2 \\ 2 & -2-\lambda} = (1-\lambda)(-2-\lambda) - 4 = \lambda^2 + \lambda - 6 = 0
+\]
+\[
+(\lambda - 2)(\lambda+3) = 0 \implies \lambda_1 = 2, \quad \lambda_2 = -3.
+\]
+(Check: $\lambda_1+\lambda_2 = -1 = \operatorname{tr}(A)$, and $\lambda_1\lambda_2 = -6 = |A|$.)
+
+\subsection*{Eigenvectors}
+\textbf{For $\lambda_1 = 2$:} Solve $(A - 2I)v = 0$:
+\[
+\mat{-1 & 2 \\ 2 & -4}\mat{v_1\\v_2} = 0 \implies v_1 = 2v_2.
+\]
+Take $v = (2,1)'$; its length is $\sqrt{2^2+1^2} = \sqrt5$, so the normalized eigenvector is
+\[
+e_1 = \frac{1}{\sqrt5}\mat{2\\1}.
+\]
+
+\textbf{For $\lambda_2 = -3$:} Solve $(A+3I)v=0$:
+\[
+\mat{4 & 2 \\ 2 & 1}\mat{v_1\\v_2}=0 \implies v_2 = -2v_1.
+\]
+Take $v=(1,-2)'$; its length is $\sqrt5$, so
+\[
+e_2 = \frac{1}{\sqrt5}\mat{1\\-2}.
+\]
+(As expected for a symmetric matrix with distinct eigenvalues, $e_1'e_2 = \tfrac{1}{5}(2-2)=0$.)
+
+\subsection*{Spectral decomposition}
+By (2-16), $A = \lambda_1 e_1e_1' + \lambda_2 e_2e_2'$:
+\[
+e_1e_1' = \frac15\mat{4 & 2\\2 & 1}, \qquad e_2e_2' = \frac15\mat{1 & -2\\-2 & 4}
+\]
+\[
+A = 2\left(\frac15\mat{4&2\\2&1}\right) + (-3)\left(\frac15\mat{1&-2\\-2&4}\right)
+= \frac15\mat{8&4\\4&2} + \frac15\mat{-3&6\\6&-12}
+= \mat{1 & 2\\ 2 & -2}
+\]
+which recovers $A$, confirming the decomposition.
+
+\section*{Problem 2.11 (5 points)}
+
+\textbf{Claim:} For a $p\times p$ diagonal matrix $A=\{a_{ij}\}$ with $a_{ij}=0$ for $i\neq j$,
+\[
+|A| = a_{11}a_{22}\cdots a_{pp}.
+\]
+
+\textbf{Proof (by induction on $p$).}
+
+\emph{Base case ($p=1$):} $A=[a_{11}]$, and $|A| = a_{11}$ trivially.
+
+\emph{Inductive step:} Assume the result holds for $(p-1)\times(p-1)$ diagonal matrices. By Definition 2A.24, the determinant of $A$ expanded by cofactors along the first row is
+\[
+|A| = a_{11}A_{11} + a_{12}A_{12} + \cdots + a_{1p}A_{1p},
+\]
+where $A_{1j}$ is the cofactor of $a_{1j}$. Since $A$ is diagonal, $a_{1j}=0$ for all $j\neq 1$, so every term except the first vanishes:
+\[
+|A| = a_{11}A_{11}.
+\]
+The cofactor $A_{11} = (-1)^{1+1}|M_{11}| = |M_{11}|$, where $M_{11}$ is the submatrix obtained by deleting the first row and first column of $A$. Because $A$ is diagonal, $M_{11}$ is exactly the $(p-1)\times(p-1)$ diagonal matrix with diagonal entries $a_{22},\dots,a_{pp}$. By the induction hypothesis,
+\[
+|M_{11}| = a_{22}a_{33}\cdots a_{pp}.
+\]
+Therefore
+\[
+|A| = a_{11}(a_{22}a_{33}\cdots a_{pp}) = a_{11}a_{22}\cdots a_{pp}.
+\]
+By induction, the result holds for all $p\geq 1$. \qquad $\blacksquare$
+
+\section*{Problem 2.24 (5 points)}
+
+Given
+\[
+\Sigma = \mat{4&0&0\\0&9&0\\0&0&1}.
+\]
+
+\subsection*{(a) $\Sigma^{-1}$}
+Since $\Sigma$ is diagonal, its inverse is the diagonal matrix of reciprocals:
+\[
+\Sigma^{-1} = \mat{\tfrac14&0&0\\0&\tfrac19&0\\0&0&1}
+\]
+
+\subsection*{(b) Eigenvalues and eigenvectors of $\Sigma$}
+For a diagonal matrix, the eigenvalues are the diagonal entries themselves, with the standard basis vectors as the corresponding (already normalized) eigenvectors. Ordering the eigenvalues from largest to smallest:
+\[
+\lambda_1 = 9,\ e_1 = \mat{0\\1\\0}; \qquad
+\lambda_2 = 4,\ e_2 = \mat{1\\0\\0}; \qquad
+\lambda_3 = 1,\ e_3 = \mat{0\\0\\1}.
+\]
+
+\subsection*{(c) Eigenvalues and eigenvectors of $\Sigma^{-1}$}
+If $\Sigma e = \lambda e$, then $\Sigma^{-1}e = \lambda^{-1}e$, so $\Sigma^{-1}$ has the \emph{same} eigenvectors as $\Sigma$, with reciprocal eigenvalues. Ordered largest to smallest:
+\[
+\lambda_1 = 1,\ e_1 = \mat{0\\0\\1}; \qquad
+\lambda_2 = \tfrac14,\ e_2 = \mat{1\\0\\0}; \qquad
+\lambda_3 = \tfrac19,\ e_3 = \mat{0\\1\\0}.
+\]
+
+\section*{Problem 2.30 (8 points)}
+
+Given $X' = [X_1,X_2,X_3,X_4]$, $\mu_X' = [4,3,2,1]$, and
+\[
+\Sigma_X = \mat{3&0&2&2\\0&1&1&0\\2&1&9&-2\\2&0&-2&4},
+\]
+partitioned as $X = \mat{X^{(1)}\\X^{(2)}}$ with $X^{(1)} = (X_1,X_2)'$, $X^{(2)}=(X_3,X_4)'$. Correspondingly,
+\[
+\mu^{(1)} = \mat{4\\3}, \quad \mu^{(2)} = \mat{2\\1}, \quad
+\Sigma_{11} = \mat{3&0\\0&1}, \quad
+\Sigma_{22} = \mat{9&-2\\-2&4}, \quad
+\Sigma_{12} = \mat{2&2\\1&0}.
+\]
+Also $A = [1\ \ 2]$ and $B = \mat{1&-2\\2&-1}$.
+
+\subsection*{(a) $E(X^{(1)})$}
+\[
+E(X^{(1)}) = \mu^{(1)} = \mat{4\\3}
+\]
+
+\subsection*{(b) $E(AX^{(1)})$}
+\[
+E(AX^{(1)}) = A\mu^{(1)} = \mat{1 & 2}\mat{4\\3} = 4+6 = 10
+\]
+
+\subsection*{(c) $\operatorname{Cov}(X^{(1)})$}
+\[
+\operatorname{Cov}(X^{(1)}) = \Sigma_{11} = \mat{3&0\\0&1}
+\]
+
+\subsection*{(d) $\operatorname{Cov}(AX^{(1)})$}
+\[
+\operatorname{Cov}(AX^{(1)}) = A\Sigma_{11}A' = \mat{1&2}\mat{3&0\\0&1}\mat{1\\2}
+= \mat{3 & 2}\mat{1\\2} = 3+4 = 7
+\]
+
+\subsection*{(e) $E(X^{(2)})$}
+\[
+E(X^{(2)}) = \mu^{(2)} = \mat{2\\1}
+\]
+
+\subsection*{(f) $E(BX^{(2)})$}
+\[
+E(BX^{(2)}) = B\mu^{(2)} = \mat{1&-2\\2&-1}\mat{2\\1} = \mat{2-2\\4-1} = \mat{0\\3}
+\]
+
+\subsection*{(g) $\operatorname{Cov}(X^{(2)})$}
+\[
+\operatorname{Cov}(X^{(2)}) = \Sigma_{22} = \mat{9&-2\\-2&4}
+\]
+
+\subsection*{(h) $\operatorname{Cov}(BX^{(2)})$}
+\[
+\operatorname{Cov}(BX^{(2)}) = B\Sigma_{22}B'
+\]
+First,
+\[
+B\Sigma_{22} = \mat{1&-2\\2&-1}\mat{9&-2\\-2&4} = \mat{9+4 & -2-8\\18+2 & -4-4} = \mat{13&-10\\20&-8}
+\]
+Then, with $B' = \mat{1&2\\-2&-1}$,
+\[
+(B\Sigma_{22})B' = \mat{13&-10\\20&-8}\mat{1&2\\-2&-1}
+= \mat{13+20 & 26+10\\ 20+16 & 40+8} = \mat{33&36\\36&48}
+\]
+So
+\[
+\operatorname{Cov}(BX^{(2)}) = \mat{33&36\\36&48}
+\]
+
+\subsection*{(i) $\operatorname{Cov}(X^{(1)},X^{(2)})$}
+\[
+\operatorname{Cov}(X^{(1)},X^{(2)}) = \Sigma_{12} = \mat{2&2\\1&0}
+\]
+
+\subsection*{(j) $\operatorname{Cov}(AX^{(1)},BX^{(2)})$}
+\[
+\operatorname{Cov}(AX^{(1)},BX^{(2)}) = A\Sigma_{12}B'
+\]
+First,
+\[
+A\Sigma_{12} = \mat{1&2}\mat{2&2\\1&0} = \mat{2+2 & 2+0} = \mat{4&2}
+\]
+Then,
+\[
+(A\Sigma_{12})B' = \mat{4&2}\mat{1&2\\-2&-1} = \mat{4-4 & 8-2} = \mat{0&6}
+\]
+So
+\[
+\operatorname{Cov}(AX^{(1)},BX^{(2)}) = \mat{0&6}
+\]
+
+\section*{Problem 2.41 (5 points)}
+
+Given $X' = [X_1,X_2,X_3,X_4]$, $\mu_X' = [3,2,-2,0]$, and
+\[
+\Sigma_X = \mat{3&0&0&0\\0&3&0&0\\0&0&3&0\\0&0&0&3} = 3I_4,
+\]
+\[
+A = \mat{1&-1&0&0\\1&1&-2&0\\1&1&1&-3}.
+\]
+$A$ is $3\times4$ and $X$ is $4\times1$, so $AX$ is $3\times1$ (dimensions conform: $4=4$).
+
+\subsection*{(a) $E(AX)$}
+\[
+E(AX) = A\mu_X = \mat{1&-1&0&0\\1&1&-2&0\\1&1&1&-3}\mat{3\\2\\-2\\0}
+= \mat{3-2\\3+2+4\\3+2-2-0} = \mat{1\\9\\3}
+\]
+
+\subsection*{(b) $\operatorname{Cov}(AX)$}
+Since $\Sigma_X = 3I_4$,
+\[
+\operatorname{Cov}(AX) = A\Sigma_X A' = 3AA'.
+\]
+Computing $AA'$ using the rows $r_1=(1,-1,0,0)$, $r_2=(1,1,-2,0)$, $r_3=(1,1,1,-3)$ of $A$:
+\[
+r_1\cdot r_1 = 2,\quad r_1\cdot r_2 = 1-1+0+0=0,\quad r_1\cdot r_3 = 1-1+0+0=0,
+\]
+\[
+r_2\cdot r_2 = 1+1+4+0=6,\quad r_2\cdot r_3 = 1+1-2+0=0,\quad r_3\cdot r_3 = 1+1+1+9=12.
+\]
+\[
+AA' = \mat{2&0&0\\0&6&0\\0&0&12}
+\]
+\[
+\operatorname{Cov}(AX) = 3AA' = \mat{6&0&0\\0&18&0\\0&0&36}
+\]
+
+\subsection*{(c) Which pairs have zero covariance?}
+Writing $Y = AX = (Y_1,Y_2,Y_3)'$ where
+\[
+Y_1 = X_1-X_2,\qquad Y_2 = X_1+X_2-2X_3,\qquad Y_3 = X_1+X_2+X_3-3X_4,
+\]
+the covariance matrix found in (b) is diagonal, so every off-diagonal entry is $0$. This means \textbf{all three pairs} of linear combinations are uncorrelated (zero covariance):
+\[
+\operatorname{Cov}(Y_1,Y_2)=0,\qquad \operatorname{Cov}(Y_1,Y_3)=0,\qquad \operatorname{Cov}(Y_2,Y_3)=0.
+\]
+
+\end{document}
